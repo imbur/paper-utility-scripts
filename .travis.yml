@@ -1,0 +1,14 @@
+language: r
+r:
+    - release
+script:
+    - cd sttt-cps-query 
+    - Rscript plot.r
+    - pdftk *.pdf cat output.pdf
+deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    keep-history: true
+    on:
+        branch: gh-pages
