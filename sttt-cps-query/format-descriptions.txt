@@ -1,0 +1,30 @@
+Source format of a single file (_VALUES represent actual values)
+
+TIMESTAMP_VALUE,ParticipantID,size,Total participants,Query ID,PID_VALUE,SIZE_VALUE,TOTALPARTICIPANTS_VALUE,QUERYID_VALUE,LOGLEVEL_VALUE
+<<this line can be ignored>>TIMESTAMP_VALUE,Local-generation-finished: LOCALGENTIME_VALUE,LOGLEVEL_VALUE
+TIMESTAMP_VALUE,Model size,Time (s),NODECOUNT_VALUE,ALLOBJECTSGENTIME_VALUE,LOGLEVEL_VALUE
+TIMESTAMP_VALUE,Remote links,Time (s),REMOTELINKSFROMLOCAL_VALUE,REMOTELINKSGEN_VALUE,LOGLEVEL_VALUE
+TIMESTAMP_VALUE,Query ID,Time (s),Query results size,QUERYNAME_VALUE,QUERYCOMPLETERUNTIME_VALUE,RESULTSIZE_VALUE,LOGLEVEL_VALUE
+
+For each description below, it might be the easiest to update the logging in the code so that only that aspect is recorded. This way the measurement process might be longer, but there is less things to focus on when processing the log files.
+Each run should be completed 30 times, so there should be 30 values related to the same evaluation scenario (model size, query ID). My suggestion is to (i) create the format described below after each run, then (ii) create the concatenation of the files containing results related to the same evaluation setting.
+Furthermore, some of the cases below will be repeated for different QoS settings (batch messages) / IDL settings (query result set reply size, for example).
+
+Evaluation and output format specification:
+
+ * Model creation - object creation throughput
+   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log the number of total elements in the model. Create a file for each model generation with the following header (we use the entry_number column to give numbers starting from 1 instead of using the timestamp field)
+   entry_number|elapsed_time_seconds|total_number_of_objects|number_of_objects_since_previous_entry
+   ID_VALUE|{ID_VALUE*[0.01..0.05]s}|TOTALOBJECTS_VALUE|OBJECTDELTA_VALUE
+
+ * Model creation - reference addition throughput
+   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log how many remote references were successfully added. You can do this by recording the number of sent reference add requests and reference add replies.
+   entry_number|elapsed_time_seconds|total_number_of_reference_requests|number_of_reference_requests_since_previous_entry|total_number_of_reference_replies|number_of_reference_repleis_since_previous_entry
+
+ * Query execution
+   Create a file for each Query with the following header:
+   query_id|model_size|time_seconds|query_results_size
+   Then, add a line for each 
+   QUERYNAME_VALUE|${NODECOUNT_VALUE*15}|QUERYCOMPLETETIMERUNTIME_VALUE|RESULTSIZE_VALUE
+ 
+ * TIMESTAMP_VALUEs will not be used.
