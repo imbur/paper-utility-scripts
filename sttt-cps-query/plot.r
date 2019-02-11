@@ -13,8 +13,8 @@ load_results = function(filename) {
 }
 
 df <- bind_rows(
-  load_results("MoDeS3/CloseTrains.csv"),
-  load_results("MoDeS3/Derailment.csv"),
+  load_results("results/CloseTrains.csv"),
+  load_results("results/Derailment.csv"),
 )
 
 aggregated <- ddply(
