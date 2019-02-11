@@ -1,4 +1,6 @@
 language: r
+cache:
+    packages: true
 r:
     - release
 script:
@@ -12,3 +14,4 @@ deploy:
     keep-history: true
     on:
         branch: gh-pages
+
