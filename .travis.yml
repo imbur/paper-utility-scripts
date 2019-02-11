@@ -3,6 +3,8 @@ cache:
     packages: true
 r:
     - release
+before_install:
+    - sudo apt-get install -y pdftk
 script:
     - cd sttt-cps-query 
     - Rscript plot.r
