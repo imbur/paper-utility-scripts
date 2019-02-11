@@ -23,8 +23,8 @@ Evaluation and output format specification:
 
  * Query execution
    Create a file for each Query with the following header:
-   query_id|model_size|time_seconds|query_results_size
-   Then, add a line for each 
-   QUERYNAME_VALUE|${NODECOUNT_VALUE*15}|QUERYCOMPLETETIMERUNTIME_VALUE|RESULTSIZE_VALUE
- 
+   query_id|model_size|time_seconds|query_results_size|allocation_type
+   Then, add a line for each
+   QUERYNAME_VALUE|${NODECOUNT_VALUE*15}|QUERYCOMPLETETIMERUNTIME_VALUE|RESULTSIZE_VALUE|ALLOCATION_TYPE
+
  * TIMESTAMP_VALUEs will not be used.
