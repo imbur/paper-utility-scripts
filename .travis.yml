@@ -8,12 +8,14 @@ before_install:
 script:
     - cd sttt-cps-query 
     - Rscript plot.r
-    - pdftk *.pdf cat output output.pdf
+    - mkdir output
+    - pdftk *.pdf cat output output/sttt-all-plots.pdf
 deploy:
     provider: pages
     skip-cleanup: true
     github-token: $GITHUB_TOKEN
     keep-history: true
+    local-dir: output/
     on:
         branch: master
 
