@@ -8,7 +8,7 @@ before_install:
 script:
     - cd sttt-cps-query 
     - Rscript plot.r
-    - pdftk *.pdf cat output.pdf
+    - pdftk *.pdf cat output output.pdf
 deploy:
     provider: pages
     skip-cleanup: true
