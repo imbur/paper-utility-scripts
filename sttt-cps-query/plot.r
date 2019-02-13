@@ -12,14 +12,16 @@ load_results = function(filename) {
   df
 }
 
-df <- bind_rows(
-  load_results("results/CloseTrains.csv"),
-  load_results("results/Derailment.csv"),
-)
+files <- list.files(path = "results/",pattern = ".csv")
+for (filename in files) {
+  df <- bind_rows(df, 
+    load_results(paste("results/",filename, sep = ""))
+  )
+}
 
 aggregated <- ddply(
   .data = df,
-  .variables = c("ms", "qi"),
+  .variables = c("ms", "qi")
 )
 
 p <- ggplot(aggregated, aes_string(x="qi", y="ts")) #set variables here
