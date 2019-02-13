@@ -12,14 +12,9 @@ Furthermore, some of the cases below will be repeated for different QoS settings
 
 Evaluation and output format specification:
 
- * Model creation - object creation throughput
-   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log the number of total elements in the model. Create a file for each model generation with the following header (we use the entry_number column to give numbers starting from 1 instead of using the timestamp field)
-   entry_number|elapsed_time_seconds|total_number_of_objects|number_of_objects_since_previous_entry
-   ID_VALUE|{ID_VALUE*[0.01..0.05]s}|TOTALOBJECTS_VALUE|OBJECTDELTA_VALUE
-
- * Model creation - reference addition throughput
-   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log how many remote references were successfully added. You can do this by recording the number of sent reference add requests and reference add replies.
-   entry_number|elapsed_time_seconds|total_number_of_reference_requests|number_of_reference_requests_since_previous_entry|total_number_of_reference_replies|number_of_reference_repleis_since_previous_entry
+ * Model creation - object creation and reference addition throughput
+   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log the number of total elements in the model. Create a file for each model generation with the following header You can do this by recording the number of object update messages, and also the sent and received reference add *replies* (not the requests). (we use the timestamp_seconds column to give our own timestamp field based on a clock we start at the beginning)
+   model_size|update_type|timestamp_seconds|delta_seconds|object_count|object_delta_count|remote_reference_sent_ack_count|remote_reference_sent_ack_delta_count|remote_reference_recv_ack_count|remote_reference_recv_ack_delta_count
 
  * Query execution
    Create a file for each Query with the following header:
@@ -27,4 +22,4 @@ Evaluation and output format specification:
    Then, add a line for each
    QUERYNAME_VALUE|${NODECOUNT_VALUE*15}|QUERYCOMPLETETIMERUNTIME_VALUE|RESULTSIZE_VALUE|ALLOCATION_TYPE
 
- * TIMESTAMP_VALUEs will not be used.
+ * The original TIMESTAMP_VALUEs will not be used.
