@@ -13,7 +13,7 @@ Furthermore, some of the cases below will be repeated for different QoS settings
 Evaluation and output format specification:
 
  * Model creation - object creation and reference addition throughput
-   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log the number of total elements in the model. Create a file for each model generation with the following header You can do this by recording the number of object update messages, and also the sent and received reference add *replies* (not the requests). (we use the timestamp_seconds column to give our own timestamp field based on a clock we start at the beginning)
+   Create a new thread to periodically (every 10..50 ms - I'm not sure what is the right resolution) log the number of total elements in the model. Create a file for each model generation with the following header You can do this by recording the number of object update messages, and also the sent and received reference add *replies* (not the requests). (We use the timestamp_seconds column to give our own timestamp field based on a clock we start at the beginning.) The QoS we used should be encoded in the filename.
    model_size|update_type|timestamp_seconds|delta_seconds|object_count|object_delta_count|remote_reference_sent_ack_count|remote_reference_sent_ack_delta_count|remote_reference_recv_ack_count|remote_reference_recv_ack_delta_count
 
  * Query execution
