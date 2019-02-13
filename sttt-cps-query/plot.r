@@ -12,6 +12,8 @@ load_results = function(filename) {
   df
 }
 
+df <- data.frame()
+
 files <- list.files(path = "results/",pattern = ".csv")
 for (filename in files) {
   df <- bind_rows(df, 
