@@ -50,9 +50,7 @@ p <- p + facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram 
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file="results.pdf", width=150, height=250, units="mm")
-
-
+ggsave(file="results-query-execution-times.pdf", width=150, height=250, units="mm")
 
 
 
@@ -93,3 +91,5 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
   theme(legend.position = 'bottom')
+
+ggsave(file="results-model-throughput.pdf", width=150, height=250, units="mm")
