@@ -93,18 +93,3 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
   theme(legend.position = 'bottom')
-
-
-#  theme(
-#    axis.title.x = "Elapsed time (s)",
-#    panel.spacing = unit(0.1, "lines"),
-#    plot.margin=unit(c(1,1,1,1), "mm")
-#  )
-
-plot(splitdata$timestamp, splitdata$total_objects,            # plot the data 
-          main="Number of model objects",  # main title 
-          xlab="Duration minutes",        # x−axis label 
-          ylab="Cumulative eruptions")   # y−axis label 
-lines(breaks, cumobj)           # join the points 
-#lines(breaks, cumfreq0)           # join the points 
-
