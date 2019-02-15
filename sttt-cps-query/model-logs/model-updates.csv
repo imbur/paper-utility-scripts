@@ -1,0 +1,13 @@
+model_size|update_type|timestamp_seconds|delta_seconds|object_count|object_delta_count|remote_reference_sent_ack_count|remote_reference_sent_ack_delta_count|remote_reference_recv_ack_count|remote_reference_recv_ack_delta_count
+60|OBJECT|0|0|0|0|0|0|0|0
+60|OBJECT|0.01|0.01|15|15|0|0|0|0
+60|OBJECT|0.02|0.01|30|15|0|0|0|0
+60|OBJECT|0.03|0.01|45|15|0|0|0|0
+60|OBJECT|0.04|0.01|60|15|0|0|0|0
+600|OBJECT|0|0|0|0|0|0|0|0
+600|OBJECT|0.011|0.011|100|100|0|0|0|0
+600|OBJECT|0.022|0.011|200|100|0|0|0|0
+600|OBJECT|0.033|0.011|300|100|0|0|0|0
+600|OBJECT|0.044|0.011|400|100|0|0|0|0
+600|OBJECT|0.055|0.011|500|100|0|0|0|0
+600|OBJECT|0.066|0.011|600|100|0|0|0|0
