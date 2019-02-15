@@ -17,10 +17,15 @@ load_query_results = function(filename) {
 load_model_results = function(filename) {
   print(filename)
   df <- read_delim(filename, delim="|")
-  df <- df[c("model_size", "update_type", "timestamp_seconds", "delta_seconds", "object_count", "object_delta_count", "remote_reference_sent_ack_count", "remote_reference_sent_ack_delta_count", "remote_reference_recv_ack_count", "remote_reference_recv_ack_delta_count")]
-  df <- select(df, ms = model_size, ut = update_type, ts = timestamp_seconds, ds = delta_seconds, oc = object_count, odc = object_delta_count)
+  df <- df[c("model_size", "update_type", "sample_id","timestamp_seconds", "delta_seconds", "object_count", "object_delta_count", "remote_reference_sent_ack_count", "remote_reference_sent_ack_delta_count", "remote_reference_recv_ack_count", "remote_reference_recv_ack_delta_count")]
+  df <- select(df, ms = model_size, ut = update_type, si = sample_id, ts = timestamp_seconds, ds = delta_seconds, oc = object_count, odc = object_delta_count)
   df
 }
+
+
+savepathFileName <- "savepath.csv"
+
+saveprefix <- if (file.exists(savepathFileName)) (read.csv(gsub(" ","", savepathFileName, fixed=TRUE), header = FALSE, sep = ";",stringsAsFactors=FALSE))$V1 else ""
 
 prefix <- "query-logs/"
 files <- list.files(path = prefix,pattern = ".csv")
@@ -50,7 +55,7 @@ p <- p + facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram 
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file="results-query-execution-times.pdf", width=150, height=250, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = "/"), width=150, height=250, units="mm")
 
 
 
@@ -68,7 +73,7 @@ breaks = df$ts
 
 modelData <- select(df, "ms", "odc")
 
-splitdata <- ddply(df, .variables = "ms", summarise, cummulated = cumsum(odc), time = ts)
+splitdata <- ddply(df, .variables = "ms", summarise, cummulated = oc, time = ts)
 
 splitdata["ms"] <- sapply(splitdata$ms, as.character)
 
@@ -80,16 +85,16 @@ modelSizes["time"] <- c(lastTimestamp)
 
 splitdata <- bind_rows(splitdata, modelSizes)
 
-savepathFileName <- "savepath.csv"
+splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
+                           by=list(splitdata$ms,splitdata$time),
+                           FUN=median), c("ms", "time", "cummulated"))
 
-saveprefix <- if (file.exists(savepathFileName)) (read.csv(gsub(" ","", savepathFileName, fixed=TRUE), header = FALSE, sep = ";",stringsAsFactors=FALSE))$V1 else ""
-
-
-p <- ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
+ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
   geom_line(aes(group = ms)) +
   labs(colour = "Total objects in the model") +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
   theme(legend.position = 'bottom')
 
-ggsave(file="results-model-throughput.pdf", width=150, height=250, units="mm")
+ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = "/"), width=150, height=250, units="mm")
+
