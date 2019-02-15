@@ -2,6 +2,7 @@ library(tidyverse)
 library(plyr)
 library(scales)
 
+
 #install.packages("tidyverse")
 
 load_query_results = function(filename) {
@@ -21,7 +22,7 @@ load_model_results = function(filename) {
   df
 }
 
-prefix <- "results/"
+prefix <- "query-logs/"
 files <- list.files(path = prefix,pattern = ".csv")
 df <- data.frame()
 for (filename in files) {
@@ -55,7 +56,7 @@ ggsave(file="results.pdf", width=150, height=250, units="mm")
 
 
 
-prefix <- "model-results/"
+prefix <- "model-logs/"
 files <- list.files(path = prefix ,pattern = ".csv")
 df <- data.frame()
 for (filename in files) {
@@ -69,12 +70,36 @@ breaks = df$ts
 
 modelData <- select(df, "ms", "odc")
 
-#splitdata <- ddply(modelData, .variables = "ms", .fun = cumsum)
 splitdata <- ddply(df, .variables = "ms", summarise, cummulated = cumsum(odc), time = ts)
 
-splitdata[ms] <- sapply(splitdata$ms, as.character)
+splitdata["ms"] <- sapply(splitdata$ms, as.character)
 
-ggplot(splitdata, aes(time, cummulated, colour=ms)) + geom_line(aes(group = ms))
+lastTimestamp <- max(splitdata$time)
+
+modelSizes <- unique(select(splitdata,"ms"))
+modelSizes$cummulated = as.integer(modelSizes$ms)
+modelSizes["time"] <- c(lastTimestamp)
+
+splitdata <- bind_rows(splitdata, modelSizes)
+
+savepathFileName <- "savepath.csv"
+
+saveprefix <- if (file.exists(savepathFileName)) (read.csv(gsub(" ","", savepathFileName, fixed=TRUE), header = FALSE, sep = ";",stringsAsFactors=FALSE))$V1 else ""
+
+
+ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
+  geom_line(aes(group = ms)) +
+  labs(colour = "Total objects in the model") +
+  xlab("Elapsed time (s)") +
+  ylab("Model objects") +
+  theme(legend.position = 'bottom')
+
+
+#  theme(
+#    axis.title.x = "Elapsed time (s)",
+#    panel.spacing = unit(0.1, "lines"),
+#    plot.margin=unit(c(1,1,1,1), "mm")
+#  )
 
 plot(splitdata$timestamp, splitdata$total_objects,            # plot the data 
           main="Number of model objects",  # main title 
