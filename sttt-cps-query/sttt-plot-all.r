@@ -85,7 +85,7 @@ savepathFileName <- "savepath.csv"
 saveprefix <- if (file.exists(savepathFileName)) (read.csv(gsub(" ","", savepathFileName, fixed=TRUE), header = FALSE, sep = ";",stringsAsFactors=FALSE))$V1 else ""
 
 
-ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
+p <- ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
   geom_line(aes(group = ms)) +
   labs(colour = "Total objects in the model") +
   xlab("Elapsed time (s)") +
