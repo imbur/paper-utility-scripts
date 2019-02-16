@@ -1,7 +1,6 @@
-library(tidyverse)
 library(plyr)
+library(tidyverse)
 library(scales)
-
 
 #install.packages("tidyverse")
 
@@ -13,7 +12,6 @@ load_query_results = function(filename) {
   df
 }
 
-
 load_model_results = function(filename) {
   print(filename)
   df <- read_delim(filename, delim="|")
@@ -21,7 +19,6 @@ load_model_results = function(filename) {
   df <- select(df, ms = model_size, ut = update_type, si = sample_id, ts = timestamp_seconds, ds = delta_seconds, oc = object_count, odc = object_delta_count)
   df
 }
-
 
 savepathFileName <- "savepath.csv"
 
