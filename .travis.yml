@@ -7,6 +7,7 @@ before_install:
     - sudo apt-get install -y pdftk
 script:
     - cd sttt-cps-query 
+    - rm ./*pdf
     - Rscript sttt-plot-all.r
     - mkdir output
     - pdftk *.pdf cat output output/sttt-all-plots.pdf
