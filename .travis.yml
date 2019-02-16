@@ -7,9 +7,9 @@ before_install:
     - sudo apt-get install -y pdftk
 script:
     - cd sttt-cps-query 
-    - find ./ -iname "*pdf" -delete
     - Rscript sttt-plot-all.r
     - mkdir output
+    - rm Rplots.pdf
     - pdftk *.pdf cat output output/sttt-all-plots.pdf
 deploy:
     provider: pages
