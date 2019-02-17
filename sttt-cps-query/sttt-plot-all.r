@@ -40,11 +40,10 @@ aggregated <- ddply(
   .variables = c("ms", "qi")
 )
 
-p <- ggplot(aggregated, aes_string(x="qi", y="ts")) #set variables here
-
-p <- p + geom_point(alpha = 1/5, size = 2.0, stroke = 0)
-
-p <- p + facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
+#set variables here
+ggplot(aggregated, aes_string(x="qi", y="ts")) +
+  geom_boxplot() +
+  facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
   xlab("Query") +
   ylab("Execution time [s]") +
   theme_bw() +
