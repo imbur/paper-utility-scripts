@@ -1,5 +1,6 @@
 query_id|model_size|time_seconds|query_results_size|allocation_type
-CloseTrains|84000|0.626084|12000|local
-CloseTrains|8400|0.0935831|1200|local
-CloseTrains|840|0.045342|120|local
-CloseTrains|84|0.0407352|12|local
+CloseTrains|420000|3.7759|60000|standard
+CloseTrains|84000|0.595707|12000|standard
+CloseTrains|8400|0.0927405|1200|standard
+CloseTrains|840|0.0495947|120|standard
+CloseTrains|84|0.0436653|12|standard
