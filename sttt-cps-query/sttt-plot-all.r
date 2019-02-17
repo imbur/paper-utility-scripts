@@ -54,7 +54,7 @@ p <- p + facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram 
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=65, height=100, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=65, height=200, units="mm")
 
 
 
