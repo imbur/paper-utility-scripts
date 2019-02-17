@@ -1,7 +1,9 @@
 library(tidyverse)
 library(plyr)
 library(scales)
+library(RColorBrewer)
 
+#install.packages("RColorBrewer")
 #install.packages("tidyverse")
 
 load_query_results = function(filename) {
@@ -91,7 +93,9 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   labs(colour = "Total objects in the model") +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
-  theme(legend.position = 'bottom')
+  theme_bw() +
+  theme(legend.position = 'bottom') +
+  scale_colour_brewer(palette = "Set1")
 
 ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=150, height=250, units="mm")
 
