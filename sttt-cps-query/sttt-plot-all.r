@@ -89,9 +89,14 @@ splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
 
 splitdata["time"] <- splitdata$time / 1000;
 
+
+#Drop values at 0
+splitdata <- splitdata[splitdata$time >= .025,]
+
+
 ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
-  #scale_y_continuous(trans='log10') +
-  #scale_x_continuous(trans='log10') +
+  scale_y_continuous(trans='log10') +
+  scale_x_continuous(trans='log10') +
   geom_line(aes(group = ms)) +
   labs(colour = "Complete model size") +
   xlab("Elapsed time (s)") +
