@@ -87,14 +87,18 @@ splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
                            by=list(splitdata$ms,splitdata$time),
                            FUN=median), c("ms", "time", "cummulated"))
 
+splitdata["time"] <- splitdata$time / 1000;
+
 ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
+  #scale_y_continuous(trans='log10') +
+  #scale_x_continuous(trans='log10') +
   geom_line(aes(group = ms)) +
-  labs(colour = "Total objects in the model") +
+  labs(colour = "Complete model size") +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
   theme_bw() +
   theme(legend.position = 'bottom') +
   scale_colour_brewer(palette = "Set1")
 
-ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=150, height=150, units="mm")
+ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=100, height=100, units="mm")
 
