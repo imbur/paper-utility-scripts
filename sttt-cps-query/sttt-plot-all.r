@@ -103,12 +103,12 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   scale_y_continuous(trans='log10') +
   scale_x_continuous(trans='log10') +
   geom_line(aes(group = ms)) +
-  labs(colour = "Complete model size") +
+  labs(colour = "Total size") +
   xlab("Elapsed time (s)") +
   ylab("Model objects") +
   theme_bw() +
-  theme(legend.position = 'bottom') +
+  #theme(legend.position = 'bottom') +
   scale_colour_brewer(palette = "Set1")
 
-ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=100, height=100, units="mm")
+ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=100, height=60, units="mm")
 
