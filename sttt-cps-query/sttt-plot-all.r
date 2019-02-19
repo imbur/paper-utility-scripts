@@ -6,6 +6,8 @@ library(RColorBrewer)
 #install.packages("RColorBrewer")
 #install.packages("tidyverse")
 
+# Function definitions ###############################
+
 load_query_results = function(filename) {
   print(filename)
   df <- read_delim(filename, delim="|")
@@ -22,9 +24,12 @@ load_model_results = function(filename) {
   df
 }
 
-savepathFileName <- "savepath.csv"
+# Global config ###############################
 
+savepathFileName <- "savepath.csv"
 saveprefix <- if (file.exists(savepathFileName)) (read.csv(gsub(" ","", savepathFileName, fixed=TRUE), header = FALSE, sep = ";",stringsAsFactors=FALSE))$V1 else ""
+
+# MoDeS3 query plot ###############################
 
 prefix <- "query-logs/"
 files <- list.files(path = prefix,pattern = ".csv")
@@ -55,7 +60,7 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
 
 ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=65, height=200, units="mm")
 
-
+# MoDeS3 model creation plot ###############################
 
 prefix <- "model-logs/"
 files <- list.files(path = prefix ,pattern = ".csv")
