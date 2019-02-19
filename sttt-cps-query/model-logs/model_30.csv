@@ -1,3 +1,4 @@
+model_size|update_type|sample_id|timestamp_seconds|delta_seconds|object_count|object_delta_count|remote_reference_sent_ack_count|remote_reference_sent_ack_delta_count|remote_reference_recv_ack_count|remote_reference_recv_ack_delta_count
 420|OBJECT|0|0|25|70|70|0|0|0|0
 420|OBJECT|1|25|25|140|70|0|0|0|0
 420|OBJECT|2|50|25|420|280|0|0|0|0
