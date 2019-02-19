@@ -58,7 +58,7 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=65, height=200, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=100, height=200, units="mm")
 
 # MoDeS3 model creation plot ###############################
 
