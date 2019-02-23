@@ -58,7 +58,7 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=100, height=200, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=80, height=160, units="mm")
 
 # MoDeS3 model creation plot ###############################
 
@@ -112,3 +112,34 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
 
 ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=100, height=60, units="mm")
 
+
+# Trainbenchmark query plot ###############################
+
+prefix <- "query-tb-logs/"
+files <- list.files(path = prefix,pattern = ".csv")
+df <- data.frame()
+for (filename in files) {
+  df <- bind_rows(df, 
+                  load_query_results(paste(prefix,filename, sep = ""))
+  )
+}
+
+aggregated <- ddply(
+  .data = df,
+  .variables = c("ms", "qi")
+)
+
+#set variables here
+ggplot(aggregated, aes_string(x="qi", y="ts")) +
+  geom_boxplot() +
+  facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
+  xlab("Query") +
+  ylab("Execution time [s]") +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.5),
+    panel.spacing = unit(0.1, "lines"),
+    plot.margin=unit(c(1,1,1,1), "mm")
+  )
+
+ggsave(file=paste(saveprefix,"plot-query-tb-execution-times.pdf", sep = ""), width=200, height=250, units="mm")
