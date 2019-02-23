@@ -142,4 +142,4 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-tb-execution-times.pdf", sep = ""), width=200, height=250, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-tb-execution-times.pdf", sep = ""), width=160, height=250, units="mm")
