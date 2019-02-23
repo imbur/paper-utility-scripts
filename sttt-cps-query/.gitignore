@@ -1,3 +1,4 @@
 savepath.csv
 *.pdf
 .Rhistory
+.RData
