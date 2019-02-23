@@ -58,7 +58,7 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=80, height=160, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-execution-times.pdf", sep = ""), width=80, height=120, units="mm")
 
 # MoDeS3 model creation plot ###############################
 
@@ -110,7 +110,7 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   #theme(legend.position = 'bottom') +
   scale_colour_brewer(palette = "Set1")
 
-ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=100, height=60, units="mm")
+ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=140, height=80, units="mm")
 
 
 # Trainbenchmark query plot ###############################
@@ -129,10 +129,12 @@ aggregated <- ddply(
   .variables = c("ms", "qi")
 )
 
+aggregated$at_f = factor(aggregated$at, levels=c('2 participants','5 participants','10 participants','20 participants'))
+
 #set variables here
 ggplot(aggregated, aes_string(x="qi", y="ts")) +
   geom_boxplot() +
-  facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
+  facet_grid(ms ~ at_f, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
   xlab("Query") +
   ylab("Execution time [s]") +
   theme_bw() +
@@ -142,4 +144,4 @@ ggplot(aggregated, aes_string(x="qi", y="ts")) +
     plot.margin=unit(c(1,1,1,1), "mm")
   )
 
-ggsave(file=paste(saveprefix,"plot-query-tb-execution-times.pdf", sep = ""), width=160, height=250, units="mm")
+ggsave(file=paste(saveprefix,"plot-query-tb-execution-times.pdf", sep = ""), width=140, height=180, units="mm")
