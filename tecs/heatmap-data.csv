@@ -1,0 +1,21 @@
+model,query,Initial,Edge mut avg,Edge mut max,Node mut avg,Node mut max
+Max. matches for close trains,Close trains,25029,14975,17330,13707,15102
+Max. matches for close trains,Misaligned turnout,79,79,81,1211,1780
+Max. matches for close trains,End of siding,12320,9348,10068,8419,9097
+Max. matches for close trains,Train locations,4754,4408,4494,3920,4241
+Max. matches for misaligned turnout,Close trains,4136,5339,5943,3762,4081
+Max. matches for misaligned turnout,Misaligned turnout,13256,9712,10028,9397,10415
+Max. matches for misaligned turnout,End of siding,4132,5203,5515,3837,4234
+Max. matches for misaligned turnout,Train locations,4754,4417,4475,3902,4209
+Max. matches for end of siding,Close trains,9358,10362,11512,6315,6852
+Max. matches for end of siding,Misaligned turnout,79,80,84,1090,1591
+Max. matches for end of siding,End of siding,9978,8973,9275,6674,7236
+Max. matches for end of siding,Train locations,4754,4756,4761,3921,4219
+Max. matches for train locations,Close trains,4136,5238,5957,3448,3733
+Max. matches for train locations,Misaligned turnout,82,82,85,1038,1514
+Max. matches for train locations,End of siding,4132,5120,5628,3446,3733
+Max. matches for train locations,Train locations,4754,4408,4497,3880,4186
+Model with realistic model statistics,Close trains,6739,5847,6601,5091,5709
+Model with realistic model statistics,Misaligned turnout,3424,3505,3621,3201,3539
+Model with realistic model statistics,End of siding,4421,3843,4164,3844,4210
+Model with realistic model statistics,Train locations,1879,1809,1881,2069,2187
