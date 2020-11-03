@@ -17,3 +17,19 @@ boxplot_exectimes <- ggplot(measurements, aes(factor(Query), Exectime)) +
 boxplot_exectimes
 
 ggsave(file="~/git/paper-rt-queries-modelgen/figs/boxplot.pdf", plot = boxplot_exectimes, width = 100, height = 100, units="mm")
+
+
+min(subset(measurements, Query == "Close trains")$Exectime)
+min(subset(measurements, Query == "End of siding")$Exectime)
+min(subset(measurements, Query == "Misaligned turnout")$Exectime)
+min(subset(measurements, Query == "Train locations")$Exectime)
+
+mean(subset(measurements, Query == "Close trains")$Exectime)
+mean(subset(measurements, Query == "End of siding")$Exectime)
+mean(subset(measurements, Query == "Misaligned turnout")$Exectime)
+mean(subset(measurements, Query == "Train locations")$Exectime)
+
+max(subset(measurements, Query == "Close trains")$Exectime)
+max(subset(measurements, Query == "End of siding")$Exectime)
+max(subset(measurements, Query == "Misaligned turnout")$Exectime)
+max(subset(measurements, Query == "Train locations")$Exectime)
