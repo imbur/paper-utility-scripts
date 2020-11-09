@@ -16,6 +16,9 @@ measurements[,value_norm_corrected:=(exectime - min_by_query)/max(exectime - min
 measurements$model = gsub("for ","for\n",measurements$model)
 measurements$model = factor(gsub("snapshot ","snapshot\n",measurements$model))
 
+measurements$query = gsub(" ","\n",measurements$query)
+measurements$query = factor(gsub("\nof"," of",measurements$query))
+
 heatmap_plot<-ggplot(measurements, aes(query, model)) +
   guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE) +
   scale_fill_gradient2(high = c("limegreen", "gold", "coral"), midpoint = 0) +
@@ -30,4 +33,4 @@ heatmap_plot<-ggplot(measurements, aes(query, model)) +
 
 heatmap_plot
 
-ggsave(file="~/git/paper-rt-queries-modelgen/figs/heatmap.pdf", plot = heatmap_plot,width = 120, height = 120, units="mm")
+ggsave(file="~/git/paper-rt-queries-modelgen/figs/heatmap.pdf", plot = heatmap_plot,width = 120, height = 100, units="mm")
