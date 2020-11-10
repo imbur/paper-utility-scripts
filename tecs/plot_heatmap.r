@@ -19,6 +19,12 @@ measurements$model = factor(gsub("snapshot ","snapshot\n",measurements$model))
 measurements$query = gsub(" ","\n",measurements$query)
 measurements$query = factor(gsub("\nof"," of",measurements$query))
 
+
+forced_levels = rev(levels(measurements$model))
+tmp = forced_levels[5]
+forced_levels = shift(forced_levels)
+forced_levels[1] = tmp
+
 heatmap_plot<-ggplot(measurements, aes(query, model)) +
   guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE) +
   scale_fill_gradient2(high = c("limegreen", "gold", "coral"), midpoint = 0) +
@@ -29,7 +35,7 @@ heatmap_plot<-ggplot(measurements, aes(query, model)) +
   theme(axis.text.y = element_text(hjust = 0.5, vjust = 0.5)) +
   ylab("Model variant") + 
   xlab("Query") +
-  scale_y_discrete(limits = rev(levels(measurements$model)))
+  scale_y_discrete(limits = forced_levels)
 
 heatmap_plot
 

@@ -9,10 +9,14 @@ measurements$Query = factor(gsub("\nof"," of",measurements$Query))
 
 boxplot_exectimes <- ggplot(measurements, aes(factor(Query), Exectime)) + 
   geom_boxplot() +
-  annotate("point", x = 'Close\ntrains', y = 22.36, col = "red", size = 1) +
-  annotate("point", x = 'End of\nsiding', y = 15.29, col = "red", size = 1) + 
-  annotate("point", x = 'Misaligned\nturnout', y = 7.83, col = "red", size = 1) +
-  annotate("point", x = 'Train\nlocations', y = 4.25, col = "red", size = 1) +
+  annotate("point", x = 'Close\ntrains', y = 22.36, col = "red", size = 2) +
+  annotate("point", x = 'End of\nsiding', y = 15.29, col = "red", size = 2) + 
+  annotate("point", x = 'Misaligned\nturnout', y = 7.83, col = "red", size = 2) +
+  annotate("point", x = 'Train\nlocations', y = 4.25, col = "red", size = 2) +
+  annotate("point", x = 'Close\ntrains', y = 11.54, col = "blue", size = 2) +
+  annotate("point", x = 'End of\nsiding', y = 7.75, col = "blue", size = 2) + 
+  annotate("point", x = 'Misaligned\nturnout', y = 5.45, col = "blue", size = 2) +
+  annotate("point", x = 'Train\nlocations', y = 2.85, col = "blue", size = 2) +
   xlab("Query") +
   theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 0.5)) +
   ylab("Execution Times (microseconds)")
