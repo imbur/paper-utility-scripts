@@ -80,12 +80,6 @@ splitdata <- ddply(df, .variables = "ms", summarise, cummulated = oc, time = ts)
 
 splitdata["ms"] <- sapply(splitdata$ms, as.character)
 
-lastTimestamp <- max(splitdata$time)
-
-modelSizes <- unique(select(splitdata,"ms"))
-modelSizes$cummulated = as.integer(modelSizes$ms)
-modelSizes["time"] <- c(lastTimestamp)
-
 splitdata <- bind_rows(splitdata, modelSizes)
 
 splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
@@ -95,22 +89,23 @@ splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
 splitdata["time"] <- splitdata$time / 1000;
 
 
-#Drop values at 0
-splitdata <- splitdata[splitdata$time >= .025,]
+#Force to show values at time 0
+splitdata$cummulated <- ifelse(splitdata$time < .025, 0, splitdata$cummulated)
 
 
 ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
-  scale_y_continuous(trans='log10') +
-  scale_x_continuous(trans='log10') +
-  geom_line(aes(group = ms)) +
+  #scale_y_continuous(trans='log10') +
+  #scale_x_continuous(trans='log10') +
+  geom_line() +
   labs(colour = "Total size") +
   xlab("Elapsed time (s)") +
-  ylab("Model objects") +
+  ylab("Object count") +
   theme_bw() +
-  #theme(legend.position = 'bottom') +
-  scale_colour_brewer(palette = "Set1")
+  theme(legend.position = 'none') +
+  scale_colour_brewer(palette = "Set1") +
+  facet_wrap(~ms , drop=FALSE, scales="free", nrow = 1)
 
-ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=140, height=80, units="mm")
+ggsave(file=paste(saveprefix,"plot-model-throughput.pdf", sep = ""), width=200, height=50, units="mm")
 
 
 # Trainbenchmark query plot ###############################
