@@ -4,8 +4,25 @@
 # devtools::install_github( 'daqana/tikzDevice' )
 require(tikzDevice)
 
-tikz('normal.tex', standAlone = FALSE, width=3, height=3)
+# TODO autmate this, but at least insert different filenames
+
+# figure ratios differ below
+
+# sttt model update throughput
+tikz('normal.tex', standAlone = FALSE, width = 6, height = 1.5)
+
+# sttt tb queries
+tikz('normal.tex', standAlone = FALSE, width = 5, height = 8)
+
+# sttt modes3 queries
+tikz('normal.tex', standAlone = FALSE, width = 5, height = 5)
+
+# tecs boxplot -- FIXME
+tikz('normal.tex', standAlone = FALSE, width = 2, height = 3)
+
+# tecs heatmap -- FIXME
+tikz('normal.tex', standAlone = FALSE, width = 2, height = 4)
 
 # do plotting then terminate session by dev.off()
-
 dev.off()
+

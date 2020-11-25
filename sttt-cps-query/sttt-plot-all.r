@@ -45,10 +45,12 @@ aggregated <- ddply(
   .variables = c("ms", "qi")
 )
 
+aggregated$at_ordered = factor(aggregated$at, levels=c('local','standard','alternative'))
+
 #set variables here
 ggplot(aggregated, aes_string(x="qi", y="ts")) +
   geom_boxplot() +
-  facet_grid(ms ~ at, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
+  facet_grid(ms ~ at_ordered, drop=FALSE, scales="free") + #to match all diagram scales, set scales="fixed"
   xlab("Query") +
   ylab("Execution time [s]") +
   theme_bw() +
@@ -80,7 +82,7 @@ splitdata <- ddply(df, .variables = "ms", summarise, cummulated = oc, time = ts)
 
 splitdata["ms"] <- sapply(splitdata$ms, as.character)
 
-splitdata <- bind_rows(splitdata, modelSizes)
+splitdata <- bind_rows(splitdata, "ms")
 
 splitdata <- setNames(average_value <- aggregate(x=splitdata$cummulated,
                            by=list(splitdata$ms,splitdata$time),
@@ -92,6 +94,8 @@ splitdata["time"] <- splitdata$time / 1000;
 #Force to show values at time 0
 splitdata$cummulated <- ifelse(splitdata$time < .025, 0, splitdata$cummulated)
 
+#Compensate late arrivals because they distort the average
+#TODO
 
 ggplot(splitdata, aes(time, cummulated, colour=ms)) + 
   #scale_y_continuous(trans='log10') +
@@ -99,7 +103,7 @@ ggplot(splitdata, aes(time, cummulated, colour=ms)) +
   geom_line() +
   labs(colour = "Total size") +
   xlab("Elapsed time (s)") +
-  ylab("Object count") +
+  ylab("Model object count") +
   theme_bw() +
   theme(legend.position = 'none') +
   scale_colour_brewer(palette = "Set1") +

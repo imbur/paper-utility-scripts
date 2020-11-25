@@ -33,7 +33,7 @@ heatmap_plot<-ggplot(measurements, aes(query, model)) +
   theme(text = element_text(size=14)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 0.5)) +
   theme(axis.text.y = element_text(hjust = 0.5, vjust = 0.5)) +
-  ylab("Model variant") + 
+  ylab("Model Variant") + 
   xlab("Query") +
   scale_y_discrete(limits = forced_levels)
 
