@@ -4,7 +4,7 @@ library(reshape2)
 library(gridExtra)
 library(data.table) 
 
-measurements = read.csv("~/git/paper-rt-queries-modelgen/tables/heatmap-data.csv", header=T)
+measurements = read.csv("~/git/paper-tecs-2021-rt-queries-modelgen/tables/heatmap-data.csv", header=T)
 
 # Create a new scale for each query (column)
 measurements<-data.table(measurements)
@@ -39,4 +39,4 @@ heatmap_plot<-ggplot(measurements, aes(query, model)) +
 
 heatmap_plot
 
-ggsave(file="~/git/paper-rt-queries-modelgen/figs/heatmap.pdf", plot = heatmap_plot,width = 120, height = 100, units="mm")
+ggsave(file="~/git/paper-tecs-2021-rt-queries-modelgen/figs/heatmap.pdf", plot = heatmap_plot,width = 120, height = 100, units="mm")

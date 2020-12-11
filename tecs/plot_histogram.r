@@ -2,7 +2,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(reshape2)
 
-measurements = read.csv("~/git/paper-rt-queries-modelgen/tables/random-model-runtimes.csv", header=T)
+measurements = read.csv("~/git/paper-tecs-2021-rt-queries-modelgen/tables/random-model-runtimes.csv", header=T)
 
 maxvals <- data.frame(variable=levels(measurements$Query), 
                 max=c(18.6,15,10,3.68))
@@ -19,4 +19,4 @@ histogram_exectimes <- ggplot(measurements, aes(Exectime)) +
 
 histogram_exectimes
 
-ggsave(file="~/git/paper-rt-queries-modelgen/figs/histogram.pdf", plot = histogram_exectimes, width = 65, height = 65, units="mm")
+ggsave(file="~/git/paper-tecs-2021-rt-queries-modelgen/figs/histogram.pdf", plot = histogram_exectimes, width = 65, height = 65, units="mm")

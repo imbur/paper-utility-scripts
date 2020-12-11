@@ -2,7 +2,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(reshape2)
 
-measurements = read.csv("~/git/paper-rt-queries-modelgen/tables/random-model-runtimes.csv", header=T)
+measurements = read.csv("~/git/paper-tecs-2021-rt-queries-modelgen/tables/random-model-runtimes.csv", header=T)
 
 measurements$Query = gsub(" ","\n",measurements$Query)
 measurements$Query = factor(gsub("\nof"," of",measurements$Query))
@@ -23,7 +23,7 @@ boxplot_exectimes <- ggplot(measurements, aes(factor(Query), Exectime)) +
 
 boxplot_exectimes
 
-ggsave(file="~/git/paper-rt-queries-modelgen/figs/boxplot.pdf", plot = boxplot_exectimes, width = 100, height = 86, units="mm")
+ggsave(file="~/git/paper-tecs-2021-rt-queries-modelgen/figs/boxplot.pdf", plot = boxplot_exectimes, width = 100, height = 86, units="mm")
 
 
 min(subset(measurements, Query == "Close\ntrains")$Exectime)
