@@ -26,6 +26,7 @@ load_query_results = function(filename, sf, uc) {
       it = `iteration`,
       ms = ` measurement stage`,
       model = ` model`,
+      query = ` query`,
       baseline = ` baseline clock ticks`,
       ticks = ` clock ticks`,
       exectime = ` execution time`,
@@ -34,11 +35,12 @@ load_query_results = function(filename, sf, uc) {
       uc = `microcontroller`
     )
   df$exectime <- as.numeric(df$exectime)
+  df$uc <- toupper(df$uc)
   df
 }
 
 scale_factors = c(1, 2, 5, 10, 20)
-microcontroller_types = c("atsamd21g18a", "xmc4500", "stm32f767zi")
+microcontroller_types = c("ATSAMD21G18A", "XMC4500", "STM32f767ZI")
 
 prefix <- "data/"
 files <- list.files(path = prefix , pattern = ".csv")
@@ -47,19 +49,20 @@ for (sf in scale_factors) {
   for (uc in microcontroller_types) {
     df <-
       bind_rows(df, load_query_results(
-        paste(prefix, "modes3-", uc, "-query-eval-sf-", sf, ".csv", sep = ""),
+        paste(prefix, "modes3-", tolower(uc), "-query-eval-sf-", sf, ".csv", sep = ""),
         sf,
         uc
       ))
   }
 }
 
-
 ggplot(data = df, aes(x = sf, y = exectime), as.table = T) +
-  geom_line(aes(color = ms)) +
-  geom_point(aes(color = ms)) +
+  geom_line(aes(color = query)) +
+  geom_point(aes(color = query)) +
   xlab("Model Size") +
   ylab("Execution Time (microseconds)") +
-  scale_y_continuous(trans='log10') +
   scale_x_continuous(trans='log10', breaks = c(1,2,5,10,20), labels = c(24, 48, 120, 240, 480)) +
-  facet_wrap( ~ uc, ncol = 3, scales = "free_y")
+  scale_y_continuous(trans='log10') +
+  scale_fill_discrete(name = "Dose", labels = c("A", "B", "C", "D"))+
+  facet_wrap( ~ uc, ncol = 3, scales = "free_y") +
+  scale_color_discrete(name = "Query")
