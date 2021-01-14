@@ -29,7 +29,7 @@ load_query_results = function(filename, sf, uc) {
       it = `iteration`,
       ms = ` measurement stage`,
       model = ` model`,
-      query = ` query`,
+      Query = ` query`,
       baseline = ` baseline clock ticks`,
       ticks = ` clock ticks`,
       exectime = ` execution time`,
@@ -74,20 +74,19 @@ forced_levels[1] = tmp
 
 exectime_plot = ggplot(data = transform(df,
                                         uc = factor(uc, levels = forced_levels)),
-                       aes(x = sf, y = exectime),
+                       aes(x = sf, y = exectime, color = Query, shape = Query),
                        as.table = T) +
-  geom_line(aes(color = query)) +
-  geom_point(aes(color = query)) +
+  geom_line() +
+  geom_point(size=2) +
   xlab("Model Size") +
-  ylab("Execution Time (microseconds)") +
+  ylab("Execution Time [ms]") +
   scale_x_continuous(
     trans = 'log10',
     breaks = c(1, 2, 5, 10, 20),
     labels = c(24, 48, 120, 240, 480)
   ) +
   scale_y_continuous(trans = 'log10') +
-  facet_grid(. ~ uc) +
-  scale_color_discrete(name = "Query")
+  facet_grid(. ~ uc)
 
 exectime_plot
 
