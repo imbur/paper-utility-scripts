@@ -1,5 +1,5 @@
 iteration, measurement stage, model, query, baseline clock ticks, clock ticks, execution time, dimension
 1, 18, MoDeS3 snapshot model, Close trains, 5665, 68, 145.29, us
-1, 19, MoDeS3 snapshot model, Misaligned turnout, 5664, 129, 75.75, us
+1, 19, MoDeS3 snapshot model, Misaligned turnout, 5664, 74, 133.37, us
 1, 20, MoDeS3 snapshot model, End of siding, 5664, 96, 102.40, us
 1, 21, MoDeS3 snapshot model, Train locations, 5664, 244, 39.22, us
