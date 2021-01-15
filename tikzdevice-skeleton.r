@@ -26,6 +26,9 @@ tikz('normal.tex', standAlone = FALSE, width = 2, height = 4)
 # thesis embedded query scalability plot
 tikz('normal.tex', standAlone = FALSE, width = 6, height = 2.5)
 
+# thesis embedded query comparison plot
+tikz('normal.tex', standAlone = FALSE, width = 6, height = 4.4)
+
 # thesis BBB query scalability plot
 tikz('normal.tex', standAlone = FALSE, width = 5, height = 3)
 

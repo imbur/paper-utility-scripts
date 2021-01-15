@@ -40,7 +40,9 @@ load_query_results = function(filename, sf, uc) {
   df$exectime <- as.numeric(df$exectime)
   df$uc <- toupper(df$uc)
   df$uc <- factor(df$uc)
-  df
+  #convert us to ms
+  df$exectime <- df$exectime / 1000
+  `df`
 }
 
 scale_factors = c(1, 2, 5, 10, 20)
@@ -66,6 +68,8 @@ for (sf in scale_factors) {
       ))
   }
 }
+
+df$Implementation = "Optimized"
 
 forced_levels = rev(levels(df$uc))
 tmp = forced_levels[3]
@@ -95,5 +99,62 @@ ggsave(
   plot = exectime_plot,
   width = 200,
   height = 80,
+  units = "mm"
+)
+
+
+dfcompare <- data.frame()
+for (sf in scale_factors) {
+  for (uc in microcontroller_types) {
+    dfcompare <-
+      bind_rows(dfcompare, load_query_results(
+        paste(
+          prefix,
+          "modes3-",
+          tolower(uc),
+          "-unoptimized-query-eval-sf-",
+          sf,
+          ".csv",
+          sep = ""
+        ),
+        sf,
+        uc
+      ))
+  }
+}
+dfcompare$Implementation <- "Subquery calls"
+
+jointdataset <- rbind(df[df$Query==" Misaligned turnout",],df[ df$Query==" End of siding",], dfcompare)
+
+#jointdataset$Query <- levels(jointdataset$Query)
+
+exectime_compare_plot = ggplot(data = transform(jointdataset,
+                                        uc = factor(uc, levels = forced_levels)),
+                       aes(x = sf, y = exectime, color = Implementation, shape = Implementation),
+                       as.table = T) +
+  geom_line() +
+  geom_point(size=2) +
+  xlab("Model Size") +
+  ylab("Execution Time [ms]") +
+  scale_x_continuous(
+    trans = 'log10',
+    breaks = c(1, 2, 5, 10, 20),
+    labels = c(24, 48, 120, 240, 480)
+  ) +
+  scale_y_continuous(trans = 'log10') +
+  facet_grid(Query ~ uc)#,
+             #scales = "free") 
+#+
+#  theme(axis.text = element_text(size = 7),
+#        axis.text.x = element_text(angle = 90))
+
+
+exectime_compare_plot
+
+ggsave(
+  file = "~/git/phd/chapters/queries-at-runtime/figures/embedded-queries-comparison.pdf",
+  plot = exectime_compare_plot,
+  width = 200,
+  height = 140,
   units = "mm"
 )
