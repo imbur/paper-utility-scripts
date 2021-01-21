@@ -90,6 +90,7 @@ exectime_plot = ggplot(data = transform(df,
     labels = c(24, 48, 120, 240, 480)
   ) +
   scale_y_continuous(trans = 'log10') +
+  scale_colour_brewer(palette = "Set1") +
   facet_grid(. ~ uc)
 
 exectime_plot
@@ -142,6 +143,7 @@ exectime_compare_plot = ggplot(data = transform(jointdataset,
     labels = c(24, 48, 120, 240, 480)
   ) +
   scale_y_continuous(trans = 'log10') +
+  scale_colour_brewer(palette = "Set2") +
   facet_grid(Query ~ uc)#,
              #scales = "free") 
 #+
@@ -151,7 +153,7 @@ exectime_compare_plot = ggplot(data = transform(jointdataset,
 
 exectime_compare_plot
 
-ggsave(
+  ggsave(
   file = "~/git/phd/chapters/queries-at-runtime/figures/embedded-queries-comparison.pdf",
   plot = exectime_compare_plot,
   width = 200,
