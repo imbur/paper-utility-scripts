@@ -1,3 +1,3 @@
 iteration, measurement stage, model, query, baseline clock ticks, clock ticks, execution time, dimension
-1, 19, MoDeS3 snapshot model, Misaligned turnout, 1543, 307, 26.09, us
-1, 20, MoDeS3 snapshot model, End of siding, 1544, 441, 16.20, us
+1, 19, MoDeS3 snapshot model, Misaligned turnout, 6945, 1382, 5.80, us
+1, 20, MoDeS3 snapshot model, End of siding, 6945, 1990, 3.59, us
